@@ -1,3 +1,6 @@
+class UndefinedRole < RuntimeError; end
+class PermissionDenied < RuntimeError; end
+
 module AngryACL
   class Acl
 
@@ -19,13 +22,14 @@ module AngryACL
     end
 
     def check!(*args)
-      raise "Permission denied" unless permiss(*args)
+      raise PermissionDenied unless permiss(*args)
       permiss(*args)
     end
 
     private                                  
 
       def permiss(resource, action, role)
+        raise UndefinedRole unless @roles.include?(role)
         @resources[resource].permiss(action, role)
       end
   end
