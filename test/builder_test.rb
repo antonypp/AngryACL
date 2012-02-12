@@ -9,14 +9,14 @@ class BuilderTest < MiniTest::Unit::TestCase
         role :viewer
       end
 
-      resource "UserReisourse", [:admin] do
+      resource "UserResourse", [:admin] do
         privilege :edit, [:user]
         privilege :show, [:user, :viewer]
       end
     end
-    assert acl.allow?("UserResource", :edit, :admin)
-    assert acl.allow?("UserResource", :edit, :user)
-    assert_equal false, acl.allow?("UserResource", :edit, :viewer)
-    assert acl.allow?("UserResource", :show, :viewer)
+    assert acl.allow?("UserResourse", :edit, :admin)
+    assert acl.allow?("UserResourse", :edit, :user)
+    assert !acl.allow?("UserResourse", :edit, :viewer)
+    assert acl.allow?("UserResourse", :show, :viewer)
   end
 end                
